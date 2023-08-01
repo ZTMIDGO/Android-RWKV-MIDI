@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
                             sb.append(" ");
                         }
                     }
-                    FileUtil.writeFile(sb.toString().getBytes(StandardCharsets.UTF_8), PathManager.getModelPath(MainActivity.this), "midi.txt");
+                    FileUtils.writeFile(sb.toString().getBytes(StandardCharsets.UTF_8), PathManager.getModelPath(MainActivity.this), "midi.txt");
                     Pair<List<MidiMessage>, DecodeState> pair = tockenizer.str_to_midi_messages(sb.toString(), 3.0f);
                     pair.first.addAll(0, tockenizer.getProgramChange());
                     byte[] header = Mido.createHeader(1, 1, 480);
@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
                     byte[] array = new byte[header.length + body.length];
                     System.arraycopy(header, 0, array, 0, header.length);
                     System.arraycopy(body, 0, array, header.length, body.length);
-                    FileUtil.writeFile(array, PathManager.getModelPath(MainActivity.this), "midi.mid");
+                    FileUtils.writeFile(array, PathManager.getModelPath(MainActivity.this), "midi.mid");
                     mTextView.setText("已生成MIDI音频");
                 }catch (Exception e){
                     e.printStackTrace();

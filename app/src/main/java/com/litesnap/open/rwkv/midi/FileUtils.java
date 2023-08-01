@@ -8,11 +8,28 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 
 /**
  * Created by ZTMIDGO 2023/4/21
  */
 public class FileUtils {
+
+    public static void createPath(File file){
+        if (!file.exists()){
+            file.mkdirs();
+        }
+    }
+
+    public static File writeFile(byte[] data, String filePath, String fileName) throws IOException {
+        createPath(new File(filePath));
+        File file = new File(filePath+"/"+fileName);
+        FileChannel fc = new FileOutputStream(file).getChannel();
+        fc.write(ByteBuffer.wrap(data));
+        fc.close();
+        return file;
+    }
 
     public static void copyAssets(AssetManager assetManager, String path, File outPath) throws IOException {
         String[] assets = assetManager.list(path);

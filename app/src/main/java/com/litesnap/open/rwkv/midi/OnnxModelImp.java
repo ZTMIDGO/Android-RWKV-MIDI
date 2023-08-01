@@ -22,15 +22,12 @@ import ai.onnxruntime.OrtSession;
  * Created by ZTMIDGO 2022/9/15
  */
 public class OnnxModelImp implements Model {
-    public static final int MODE_WRITE = 0;
-    public static final int MODE_TALK = 1;
 
     private final String MODEL_NAME = "model.onnx";
     private final OrtEnvironment environment = OrtEnvironment.getEnvironment();
     private final OrtSession.SessionOptions options = new OrtSession.SessionOptions();
     private final Map<String, OnnxTensor> map = new LinkedHashMap<>();
     private final Random random = new Random();
-    private final Strategy strategy = new Strategy(StrategyEnum.TOPK, 8);
     private final ExecutorService exec = Executors.newCachedThreadPool();
 
     private final Context context;
@@ -153,7 +150,7 @@ public class OnnxModelImp implements Model {
 
     @Override
     public void setTopK(int value) {
-        strategy.value = value;
+
     }
 
     @Override
